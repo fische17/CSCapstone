@@ -144,7 +144,7 @@ class Teacher(models.Model):
 # University Info
                                 
     is_professor = True
-    #university = models.ForeignKey(University, on_delete=models.CASCADE)
+    university = models.CharField(max_length=100)#models.ForeignKey(University, on_delete=models.CASCADE)
 
                                 
     def get_full_name(self):
