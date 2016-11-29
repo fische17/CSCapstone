@@ -144,7 +144,7 @@ class Teacher(models.Model):
 # University Info
                                 
     is_professor = True
-    university = models.CharField(max_length=100)#models.ForeignKey(University, on_delete=models.CASCADE)
+    university_name = models.CharField(max_length=100)#models.ForeignKey(University, on_delete=models.CASCADE)
 
                                 
     def get_full_name(self):
@@ -175,51 +175,51 @@ class Engineer(models.Model):
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
-        
-	almaMater = models.CharField(
+
+    almaMater = models.CharField(
 			max_length = 160,
 			null= True,
 	)
-	contact_info = models.charField(
+    contact_info = models.CharField(
 			max_length = 160,
 			null= True,
 	)
-	about = models.charField(
+    about = models.CharField(
 			max_length = 160,
 			null= True,
 	)
-	def getFullName(self):
+    def getFullName(self):
 		return "%s %s" %(self.user.first_name, self.user.last_name)
 	
-	def getFirstName(self):
+    def getFirstName(self):
 		return self.user.first_name
 		
-	def getLastName(self):
+    def getLastName(self):
 		return self.user.last_name
 		
-	def getAlmaMater(self):
+    def getAlmaMater(self):
 		return self.almaMater
 	
-	def getAbout(self):
+    def getAbout(self):
 		return self.about
 	
-	def getContactInfo(self):
-		retun self.contact_info
+    def getContactInfo(self):
+        return self.contact_info
 		
-	def __str__(self):
+    def __str__(self):
 		return self.user.email
 
-	def __unicode__(self): 
+    def __unicode__(self):
 		return self.user.email
 
-	def has_perm(self, perm, obj=None):
+    def has_perm(self, perm, obj=None):
 		return True
 
-	def has_module_perms(self, app_label):        
+    def has_module_perms(self, app_label):
 		return True
 
 
-	@property
-	def is_staff(self):
+    @property
+    def is_staff(self):
 		return False
 	
