@@ -29,11 +29,3 @@ class Course(models.Model):
 	def __str__(self):
 		return self.name
 		
-class Engineers(models.Model):
-	name = models.CharField(max_length=50)
-	contactInfo = models.CharField(max_length=300)
-	almaMater = models.ForeignKey(University, on_delete=models.CASCADE)
-	about = models.CharField(max_length=300)
-
-	def __str__(self):
-		return self.name

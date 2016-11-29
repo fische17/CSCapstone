@@ -170,5 +170,56 @@ class Teacher(models.Model):
         return True
 
 
+class Engineer(models.Model):
+    user = models.OneToOneField(
+        MyUser,
+        on_delete=models.CASCADE,
+        primary_key=True)
+        
+	almaMater = models.CharField(
+			max_length = 160,
+			null= True,
+	)
+	contact_info = models.charField(
+			max_length = 160,
+			null= True,
+	)
+	about = models.charField(
+			max_length = 160,
+			null= True,
+	)
+	def getFullName(self):
+		return "%s %s" %(self.user.first_name, self.user.last_name)
+	
+	def getFirstName(self):
+		return self.user.first_name
+		
+	def getLastName(self):
+		return self.user.last_name
+		
+	def getAlmaMater(self):
+		return self.almaMater
+	
+	def getAbout(self):
+		return self.about
+	
+	def getContactInfo(self):
+		retun self.contact_info
+		
+	def __str__(self):
+		return self.user.email
+
+	def __unicode__(self): 
+		return self.user.email
+
+	def has_perm(self, perm, obj=None):
+		return True
+
+	def has_module_perms(self, app_label):        
+		return True
 
 
+	@property
+	def is_staff(self):
+		return False
+	
