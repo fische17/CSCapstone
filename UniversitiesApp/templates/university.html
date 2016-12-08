@@ -32,6 +32,22 @@
 				</tbody>
 			</table>
 		</div>
+        <div class="table-responsive">
+            <table class="table table-striped sortable">
+                <thead>
+                    <tr>
+                        <th>Professors</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in university.teachers.all %}
+                    <tr>
+                        <td>{{ item.get_full_name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 		<div class="table-responsive">
 			<table class="table table-striped sortable">
 				<thead>

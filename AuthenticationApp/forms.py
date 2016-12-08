@@ -14,10 +14,17 @@ class LoginForm(forms.Form):
 class RegisterForm(forms.Form):
     """A form to creating new users. Includes all the required
     fields, plus a repeated password."""
+    ROLES = (
+        ("student", "Student"),
+        ("teacher", "Teacher"),
+        ("engineer", "Engineer")
+        )
+
     email = forms.CharField(label='Email', widget=forms.EmailInput, required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)    
-
+    role = forms.ChoiceField(label='Role',widget=forms.Select(), initial="student",choices=ROLES)
+    #orginization = forms.ModelChoiceField(queryset=University.objects.all())
     firstname = forms.CharField(label="First name", widget=forms.TextInput, required=False)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)               
 
