@@ -104,7 +104,7 @@ class Student(models.Model):
         
     is_student = False
     
-    #university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
+    #university_name = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
     def get_full_name(self):        
         return "%s %s" %(self.user.first_name, self.user.last_name)
