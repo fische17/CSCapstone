@@ -5,11 +5,8 @@ from django.shortcuts import render
 
 from . import models
 from . import forms
-<<<<<<< f0f1b5affaa26737f38bf84e58114241d6952d74
 from CommentsApp.models import Comment
-=======
 import itertools
->>>>>>> Suggestion Algorithm
 
 def getGroups(request):
     if request.user.is_authenticated():

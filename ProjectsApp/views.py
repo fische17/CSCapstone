@@ -80,3 +80,14 @@ def getCreateForm(request):
 		return render(request, 'createProjectForm.html')
     # render error page if user is not logged in
 	return render(request, 'autherror.html')
+
+def deleteProject(request):
+	if request.user.is_authenticated():
+		if request.user.is_engineer:
+			in_name = request.GET.get('name', 'None')
+			in_project = models.Project.objects.get(name__exact=in_name)
+			if request.user.engineer.company.name == in_project.company.name:
+				
+				in_project.delete()
+				return render(request, 'createProjectForm.html')
+	return render(request, 'autherror.html')
