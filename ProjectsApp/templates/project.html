@@ -7,6 +7,10 @@
 		<div class="jumbotron">
 			<h1>{{ projects.name }}</h1>
 			<p>{{ projects.description }}</p>
+			<p>Language: {{ projects.programmingLang }}</p>
+			<p>Speciality: {{ projects.speciality }}</p>
+			<p>Company: {{ projects.company }}</p>
+
 			<a href="/project/bookmark?name={{ projects.name }}">Bookmarked {{ projects.name }}?</a>
 		</div>
 	</div>

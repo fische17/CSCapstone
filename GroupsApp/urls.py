@@ -20,4 +20,7 @@ urlpatterns = [
     url(r'^group/comment', views.comment, name='Comment'),
     url(r'^group/addGroupComment', views.addComment, name='Comment'),
     url(r'^group/deleteComment', views.deleteComment, name='DeleteComment'),
+    url(r'^group/GetSuggestedGroups', views.suggestProjectForGroup, name='SuggestedGroups'),
+    url(r'^group/RemoveProject', views.RemoveProject, name='RemoveProject'),
+
 ]

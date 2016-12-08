@@ -68,8 +68,8 @@ def joinCompany(request):
         if(request.user.is_engineer):
             in_company.members.add(request.user)
             in_company.save();
-            # if(request.user.engineer.company):
-            #     request.user.engineer.company.members.remove(request.user.engineer)
+                # if(request.user.engineer.company):
+                #     request.user.engineer.company.members.remove(request.user.engineer)
             request.user.engineer.company = in_company
             request.user.engineer.save()
             request.user.save()

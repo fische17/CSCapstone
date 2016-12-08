@@ -5,7 +5,11 @@ from django.shortcuts import render
 
 from . import models
 from . import forms
+<<<<<<< f0f1b5affaa26737f38bf84e58114241d6952d74
 from CommentsApp.models import Comment
+=======
+import itertools
+>>>>>>> Suggestion Algorithm
 
 def getGroups(request):
     if request.user.is_authenticated():
@@ -195,4 +199,56 @@ def deleteComment(request):
         return render(request, 'group.html', {
             'group': in_group,
         })
+
+def suggestProjectForGroup(request):
+    if request.user.is_authenticated():
+        in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name__exact=in_name)
+        in_members = in_group.members.all()
+        values = []
+        for member in in_members:
+            if member.is_student:
+                y = member.student.languages.strip().split(",")
+                for word in y:
+                    values.append(word)
+            
+        output = []
+        seen = set()
+        for value in values:
+            if value not in seen:
+                output.append(value)
+                seen.add(value)
+        
+        projects_list = models.Project.objects.filter(programmingLang__contains="asdasdjwk")
+			
+        for lang in output:
+            projects_list = itertools.chain(projects_list, models.Project.objects.filter(programmingLang__exact=lang))
+        
+        return render(request, 'groupSuggestedProjects.html', {
+            'projects': projects_list,
+        })
+    # render error page if user is not logged in
+    return render(request, 'autherror.html')  
+
+def removeDups(values):
+    output = []
+    seen = set()
+    for value in values:
+        if value not in seen:
+            output.append(value)
+            seen.add(value)
+    print(output)
+    return output
+
+def RemoveProject(request):
+    if request.user.is_authenticated():
+        in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name__exact=in_name)
+        in_group.project = None
+        in_group.save()
+        return render(request, 'groupRemoveProjectSuccess.html', {
+            'group': in_group,
+            'name': in_group.name
+        })
+    # render error page if user is not logged in
     return render(request, 'autherror.html')

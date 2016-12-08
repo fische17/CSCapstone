@@ -10,10 +10,13 @@
 			{% if userIsMember %}
 				<a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
 				<a href="/group/helloWorld?name={{ group.name }}" class="btn btn-default">Add A Member!</a>
-				{% if haveProject %}
-					<a href="/group/addProject?name={{ group.name }}" class="btn btn-default">Remove Current Project</a>
+				<a href="/group/GetSuggestedGroups?name={{ group.name }}" class="btn btn-default">Suggest Group Project</a>
+				{% if group.project != None %}
+				<p>Current Project: {{ group.project.name }} </p>
+					
+					<a href="/group/RemoveProject?name={{ group.name }}" class="btn btn-default">Remove Current Project</a>
 				{% else %}
-					<a href="/group/addProject?name={{ group.name }}" class="btn btn-default">Add Project</a>
+					<a href="/group/addProject?name={{ group.name }}" class="btn btn-default">Add Project</a>	
 				{% endif %}
 			{% else %}
 			<a href="/group/join?name={{ group.name }}" class="btn btn-default">Join this Group</a>
