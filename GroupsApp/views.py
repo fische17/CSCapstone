@@ -37,20 +37,21 @@ def getGroupForm(request):
 
 def getGroupFormSuccess(request):
     if request.user.is_authenticated():
-        if request.method == 'POST':
-            form = forms.GroupForm(request.POST)
-            if form.is_valid():
-                if models.Group.objects.filter(name__exact=form.cleaned_data['name']).exists():
-                    return render(request, 'groupform.html', {'error' : 'Error: That Group name already exists!'})
-                new_group = models.Group(name=form.cleaned_data['name'], description=form.cleaned_data['description'])
-                new_group.save()
-                context = {
-                    'name' : form.cleaned_data['name'],
-                }
-                return render(request, 'groupformsuccess.html', context)
-        else:
-            form = forms.GroupForm()
-        return render(request, 'groupform.html')
+        if request.user.is_student:
+            if request.method == 'POST':
+                form = forms.GroupForm(request.POST)
+                if form.is_valid():
+                    if models.Group.objects.filter(name__exact=form.cleaned_data['name']).exists():
+                        return render(request, 'groupform.html', {'error' : 'Error: That Group name already exists!'})
+                    new_group = models.Group(name=form.cleaned_data['name'], description=form.cleaned_data['description'])
+                    new_group.save()
+                    context = {
+                        'name' : form.cleaned_data['name'],
+                    }
+                    return render(request, 'groupformsuccess.html', context)
+            else:
+                form = forms.GroupForm()
+            return render(request, 'groupform.html')
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
@@ -68,7 +69,7 @@ def joinGroup(request):
         }
         return render(request, 'group.html', context)
     return render(request, 'autherror.html')
-    
+
 def unjoinGroup(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
@@ -83,4 +84,3 @@ def unjoinGroup(request):
         }
         return render(request, 'group.html', context)
     return render(request, 'autherror.html')
-    

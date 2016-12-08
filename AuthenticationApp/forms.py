@@ -22,11 +22,12 @@ class RegisterForm(forms.Form):
 
     email = forms.CharField(label='Email', widget=forms.EmailInput, required=True)
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)    
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)
     role = forms.ChoiceField(label='Role',widget=forms.Select(), initial="student",choices=ROLES)
     #orginization = forms.ModelChoiceField(queryset=University.objects.all())
+
     firstname = forms.CharField(label="First name", widget=forms.TextInput, required=False)
-    lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)               
+    lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -55,11 +56,11 @@ class UpdateForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = MyUser         
+        model = MyUser
         fields = ('email', 'password', 'first_name', 'last_name')
 
-    def clean_password(self):            
-        return self.initial["password"]        
+    def clean_password(self):
+        return self.initial["password"]
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -78,11 +79,11 @@ class UpdateForm(forms.ModelForm):
     def clean_first_name(self):
         first_name = self.cleaned_data.get("first_name")
         #Check is email has changed
-        if first_name is None or first_name == "" or first_name == '':  
-            email = self.cleaned_data.get("email")                               
-            return email[:email.find("@")]      
+        if first_name is None or first_name == "" or first_name == '':
+            email = self.cleaned_data.get("email")
+            return email[:email.find("@")]
         return first_name
-   
+
 
 
 """Admin Forms"""
@@ -91,11 +92,11 @@ class AdminUserCreationForm(forms.ModelForm):
     """A form for Admin to creating new users. Includes all the required
     fields, plus a repeated password."""
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)    
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
         model = MyUser
-        fields = ('email', 'first_name', 'last_name')        
+        fields = ('email', 'first_name', 'last_name')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -131,7 +132,3 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
-
-
-
-
