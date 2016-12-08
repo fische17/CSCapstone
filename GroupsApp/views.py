@@ -5,6 +5,7 @@ from django.shortcuts import render
 
 from . import models
 from . import forms
+from CommentsApp.models import Comment
 
 def getGroups(request):
     if request.user.is_authenticated():
@@ -157,4 +158,25 @@ def getAddProject(request):
     # render error page if user is not logged in
     return render(request, 'autherror.html')
 
-    
+def comment(request):
+    if request.user.is_authenticated():
+        in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name__exact=in_name)
+        return render(request, 'groupCommentForm.html', {
+            'group': in_group,
+        })
+
+def addComment(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = forms.groupCommentForm(request.POST)
+            in_name = request.GET.get('name', 'None')
+            print(in_name)
+            in_group = models.Group.objects.get(name__exact=in_name)
+            new_comment = Comment(comment=form.cleaned_data['comment'])
+            new_comment.group = in_group
+            new_comment.save()
+            in_group.comments.add(new_comment)
+            return render(request, 'group.html', {
+                'group': in_group,
+            })

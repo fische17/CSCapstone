@@ -11,10 +11,8 @@ class Group(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=300)
     members = models.ManyToManyField(MyUser)
-
     comments = models.ManyToManyField('CommentsApp.Comment', related_name='comments')
-
-    project = models.ForeignKey(Project, null= True, blank=True)
+    project = models.ForeignKey(Project, null= True, blank=True, related_name='project')
 
     
     def __str__(self):
