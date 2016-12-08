@@ -61,6 +61,7 @@ def auth_register(request):
 		#Also registering students		
 		if(form.cleaned_data['role'] == "student"):
 			new_student = Student(user = new_user)
+			new_student.university = form.cleaned_data['university']			
 			new_user.is_student = True
 			new_student.save()
 

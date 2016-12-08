@@ -8,11 +8,19 @@
 			<h3>{{ university.name }}</h3>
 			<p>{{ university.description }}</p>
             <h5><a href="{{ university.website }}">Website</a></h5>
-            {% if userIsMember %}
-            <a href="/university/unjoin?name={{ university.name }}" class="btn btn-default">Unjoin this University</a>
-            {% else %}
-            <a href="/university/join?name={{ university.name }}" class="btn btn-default">Join this University</a>
-            {% endif %}
+            {% if user.is_teacher == True %}
+				{% if user.teacher.university == university %}
+            		<a href="/university/unjoin?name={{ university.name }}" class="btn btn-default">Unjoin this University</a>
+            	{% else %}
+            		<a href="/university/join?name={{ university.name }}" class="btn btn-default">Join this University</a>
+            	{% endif %}
+			{% elif user.is_student == True %}
+				{% if user.student.university == university %}
+            		<a href="/university/unjoin?name={{ university.name }}" class="btn btn-default">Unjoin this University</a>
+            	{% else %}
+            		<a href="/university/join?name={{ university.name }}" class="btn btn-default">Join this University</a>
+            	{% endif %}
+			{% endif %}
 		</div>
     </div>
     <div class="container" role="main">
@@ -68,7 +76,11 @@
 				</tbody>
 			</table>
 		</div>
-		<a href="/university/course/form?name={{ university.name }}" class="btn btn-default">Add a course</a>
+		{% if user.is_teacher %}
+			{% if  user.teacher.university == university %}
+				<a href="/university/course/form?name={{ university.name }}" class="btn btn-default">Add a course</a>
+			{% endif %}
+		{% endif %}
 	</div>
 	
 {% endblock %}
