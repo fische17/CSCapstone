@@ -1,6 +1,14 @@
 {% extends "body.html" %}
 {% block content %}
     <!-- Content -->
+    <script type="text/javascript">
+tinyMCE.init({
+        mode : "textareas",
+        theme : "advanced",
+        readonly : true
+});
+</script>
+
     <div class="container" role="main">
         <div class="table-responsive">
             <table class="table table-striped sortable">
@@ -13,12 +21,22 @@
                 <tbody>
                    {% for item in comments %}
                    <tr>
+                       
                        <td>{{ item.time }}</td>
-                       <td>{{ item.comment }}</td>
+                       <td>
+        <pre>{% autoescape off %}{{ item.comment }}{% endautoescape %}
+        </pre>
+                       </td>
                    </tr>
                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
+
+
+
+
+
 {% endblock %}

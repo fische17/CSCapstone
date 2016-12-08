@@ -108,6 +108,7 @@ class Student(models.Model):
 
     
     university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
+    #courses = models.ManyToManyField('UniversitiesApp.Course', related_name='courses')
 
     def get_full_name(self):
         return "%s %s" %(self.user.first_name, self.user.last_name)
@@ -151,7 +152,8 @@ class Teacher(models.Model):
 
     university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
 
-
+    #courses = models.ManyToManyField('UniversitiesApp.Course', related_name='courses')
+                                
 
     def get_full_name(self):
         return "%s %s" %(self.user.first_name, self.user.last_name)
@@ -182,7 +184,8 @@ class Engineer(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
-    company = models.ForeignKey('CompaniesApp.Company', on_delete=models.CASCADE, blank=True)
+
+    company = models.ForeignKey('CompaniesApp.Company', on_delete=models.CASCADE, null=True, blank=True)
 
     almaMater = models.CharField(
 			max_length = 160,

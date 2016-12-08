@@ -11,7 +11,7 @@ class Project(models.Model):
     description = models.CharField(max_length=10000)
     created_at = models.DateTimeField('date created')
     updated_at = models.DateTimeField('date updated')
-    programmingLang = models.CharField(max_length=100)
+    programmingLang = models.CharField(max_length=100, null=True)
     yearsRequired = models.CharField(max_length=100)
     speciality = models.CharField(max_length=100)
     company = models.ForeignKey(Company, null= True, blank=True)

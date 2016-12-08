@@ -20,12 +20,13 @@ class University(models.Model):
         return self.name
 	
 class Course(models.Model):
-	tag = models.CharField(max_length=10)
-	name = models.CharField(max_length=50)
-	description = models.CharField(max_length=300)
-	university = models.ForeignKey(University, on_delete=models.CASCADE)
-	members = models.ManyToManyField(MyUser)
-
-	def __str__(self):
-		return self.name
+    tag = models.CharField(max_length=10)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=300)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    members = models.ManyToManyField(MyUser)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def __str__(self):
+        return self.name
 		

@@ -13,3 +13,6 @@ class AddMembersForm(forms.Form):
 
 class addProjectForm(forms.Form):
     projectName = forms.CharField(label="projectName", max_length=200)
+
+class groupCommentForm(forms.Form):
+    comment = forms.CharField(label='Text', max_length=500)
