@@ -65,17 +65,22 @@ def joinCompany(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
         in_company = models.Company.objects.get(name__exact=in_name)
-        in_company.members.add(request.user)
-        in_company.save();
-        request.user.company_set.add(in_company)
-        request.user.save()
-        context = {
-            'company' : in_company,
-            'userIsMember': True,
+        if(request.user.is_engineer):
+            in_company.members.add(request.user)
+            in_company.save();
+            # if(request.user.engineer.company):
+            #     request.user.engineer.company.members.remove(request.user.engineer)
+            request.user.engineer.company = in_company
+            request.user.engineer.save()
+            request.user.save()
+            context = {
+                'company' : in_company,
+                'userIsEngineer': True,
         }
         return render(request, 'company.html', context)
     return render(request, 'autherror.html')
     
+
 def unjoinCompany(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
