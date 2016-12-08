@@ -11,11 +11,11 @@ class Group(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=300)
     members = models.ManyToManyField(MyUser)
-<<<<<<< HEAD
+
     comments = models.ManyToManyField('CommentsApp.Comment', related_name='comments')
-=======
+
     project = models.ForeignKey(Project, null= True, blank=True)
->>>>>>> master
+
     
     def __str__(self):
         return self.name
