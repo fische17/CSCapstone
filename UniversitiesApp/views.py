@@ -77,14 +77,17 @@ def joinUniversity(request):
                 'university' : in_university,
                 'userIsTeacher': True,
             }
-        else:
+        elif (request.user.is_student):
             in_university.members.add(request.user)
             in_university.save();
-            request.user.university_set.add(in_university)
+            if(request.user.student.university):
+                request.user.student.university.members.remove(request.user)
+            request.user.student.university = in_university
+            request.user.student.save()
             request.user.save()
             context = {
                 'university' : in_university,
-                'userIsMember': True,
+                'userIsTeacher': True,
             }
 
 
@@ -106,14 +109,15 @@ def unjoinUniversity(request):
                 'userIsTeacher': False,
             }
         
-        else:
+        elif(request.user.is_student):
             in_university.members.remove(request.user)
             in_university.save();
-            request.user.university_set.remove(in_university)
+            request.user.student.university = None
+            request.user.student.save()
             request.user.save()
             context = {
                 'university' : in_university,
-                'userIsMember': False,
+                'userIsTeacher': True,
             }
         
         
