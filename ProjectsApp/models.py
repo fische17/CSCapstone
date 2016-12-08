@@ -4,6 +4,7 @@ Created by Harris Christiansen on 10/02/16.
 """
 from django.db import models
 from AuthenticationApp.models import MyUser
+from CompaniesApp.models import Company
 
 class Project(models.Model):
     name = models.CharField(max_length=200)
@@ -13,7 +14,7 @@ class Project(models.Model):
     programmingLang = models.CharField(max_length=100)
     yearsRequired = models.CharField(max_length=100)
     speciality = models.CharField(max_length=100)
-    company = models.CharField(max_length=100)
+    company = models.ForeignKey(Company, null= True, blank=True)
     def __str__(self):
         return self.name
 

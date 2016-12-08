@@ -30,6 +30,9 @@
 							<li><a href="/project/all">All Projects</a></li>
 							<li><a href="/project/bookmarks">Bookmarked</a></li>
 							<li><a href="/project/suggested">Suggested</a></li>
+							{% if user.is_engineer %}
+								<li><a href="/project/createForm">Create Project</a></li>
+							{% endif %}
 						</ul>
 					</li>
 					<li role="presentation" class="dropdown">
@@ -49,7 +52,9 @@
 						<ul class="dropdown-menu">
 							<li><a href="/company/form">Create Company</a></li>
 							<li><a href="/university/form">Create University</a></li>
-							<li><a href="/group/form">Create Group</a></li>
+							{% if user.is_student %}
+								<li><a href="/group/form">Create Group</a></li>
+							{% endif %}
 						</ul>
 					</li>
 					<li><a href="/logout">Logout</a></li>

@@ -114,7 +114,7 @@ def update_info(request):
 	elif(request.user.is_engineer):
 		form = EngineerUpdateForm(request.POST or None, instance=request.user.engineer)
 	else:
-		form = StudentUpdateForm(request.POST or None, instance=request.user.engineer)				
+		form = StudentUpdateForm(request.POST or None, instance=request.user.student)				
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Success, your info was save!')

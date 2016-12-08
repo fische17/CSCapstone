@@ -10,3 +10,6 @@ class GroupForm(forms.Form):
 
 class AddMembersForm(forms.Form):
 	email = forms.CharField(label="Email", max_length=200)
+
+class addProjectForm(forms.Form):
+    projectName = forms.CharField(label="projectName", max_length=200)

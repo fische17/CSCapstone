@@ -103,7 +103,7 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
     user.is_student = True;
-
+    languages = models.CharField(max_length=200)
 
 
     
@@ -181,7 +181,7 @@ class Engineer(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
-
+    company = models.ForeignKey('CompaniesApp.Company', on_delete=models.CASCADE)
 
     almaMater = models.CharField(
 			max_length = 160,
