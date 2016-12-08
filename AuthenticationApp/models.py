@@ -97,13 +97,14 @@ class MyUser(AbstractBaseUser):
 
 
 class Student(models.Model):
+
     user = models.OneToOneField(
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
+    user.is_student = True;
 
-    is_student = False
-    
+
     #university_name = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
     def get_full_name(self):

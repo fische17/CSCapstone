@@ -84,3 +84,42 @@ def unjoinGroup(request):
         }
         return render(request, 'group.html', context)
     return render(request, 'autherror.html')
+
+def addMemberGroup(request):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = forms.AddMembersForm(request.POST)
+            if form.is_valid():
+                in_user_email = form.cleaned_data['email']
+                if not models.MyUser.objects.filter(email__exact=in_user_email).exists():
+                    return render(request, 'addmemberform.html', {'error' : 'Error: The user does not exist'})
+                
+                in_user = models.MyUser.objects.get(email__exact=in_user_email)
+                in_group_name = request.GET.get('name', "None")
+                in_group = models.Group.objects.get(name__exact=in_group_name)
+                in_group.members.add(in_user)
+                in_group.save();
+                in_user.group_set.add(in_group)
+                in_user.save()
+                context = {
+                    'group' : in_group,
+                    'userIsMember': True,
+                }
+            return render(request, 'group.html', context)
+        else:
+            form = forms.GroupForm()
+        return render(request, 'group.html')
+    # render error page if user is not logged in
+    return render(request, 'autherror.html')
+
+def helloWorld(request):
+    if request.user.is_authenticated():
+        in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name__exact=in_name)
+        return render(request, 'addMemberForm.html', {
+    	    'group': in_group,
+    	})
+    # render error page if user is not logged in
+    return render(request, 'autherror.html')
+
+    
