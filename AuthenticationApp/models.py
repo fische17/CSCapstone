@@ -59,7 +59,7 @@ class MyUser(AbstractBaseUser):
 
     # #New fields added
     is_student = models.BooleanField(default=False,)
-    is_professor = models.BooleanField(default=False,)
+    is_teacher = models.BooleanField(default=False,)
     is_engineer = models.BooleanField(default=False,)
 
     objects = MyUserManager()
@@ -102,7 +102,6 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
-    is_student = False
     
     #university_name = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
@@ -146,7 +145,6 @@ class Teacher(models.Model):
 
 # University Info
 
-    is_professor = True
     university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
 
@@ -178,6 +176,8 @@ class Engineer(models.Model):
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
+
+
 
     almaMater = models.CharField(
 			max_length = 160,

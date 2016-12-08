@@ -4,7 +4,11 @@ Created by Naman Patwari on 10/4/2016.
 """
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django import forms
-from .models import MyUser
+from .models import MyUser, Teacher, Engineer, Student
+from UniversitiesApp.models import University
+from CompaniesApp.models import Company
+
+
 
 class LoginForm(forms.Form):
     email = forms.CharField(label='Email')
@@ -24,9 +28,14 @@ class RegisterForm(forms.Form):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)    
     role = forms.ChoiceField(label='Role',widget=forms.Select(), initial="student",choices=ROLES)
-    #orginization = forms.ModelChoiceField(queryset=University.objects.all())
+    #company = forms.ModelChoiceField(queryset=Company.objects.all())
+    university = forms.ModelChoiceField(queryset=University.objects.all())
     firstname = forms.CharField(label="First name", widget=forms.TextInput, required=False)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)               
+
+    def get_role(self):
+        # Get the role of the user
+        return role
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -83,6 +92,42 @@ class UpdateForm(forms.ModelForm):
             return email[:email.find("@")]      
         return first_name
    
+class TeacherUpdateForm(forms.ModelForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    password hash display field.
+    """
+    #password = ReadOnlyPasswordHashField()
+    
+
+    class Meta:
+        model = Teacher       
+        fields = ('university', 'phone_number', 'address', 'address2', 'city', 'state', 'zip')
+
+class EngineerUpdateForm(forms.ModelForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    password hash display field.
+    """
+    #password = ReadOnlyPasswordHashField()
+    
+
+    class Meta:
+        model = Engineer       
+        fields = ('almaMater', 'contact_info', 'about',)
+
+class StudentUpdateForm(forms.ModelForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    password hash display field.
+    """
+    #password = ReadOnlyPasswordHashField()
+    
+
+    class Meta:
+        model = Student       
+        fields = ()
+
 
 
 """Admin Forms"""
