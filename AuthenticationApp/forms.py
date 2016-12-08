@@ -91,8 +91,7 @@ class UpdateForm(forms.ModelForm):
             email = self.cleaned_data.get("email")
             return email[:email.find("@")]
         return first_name
-<<<<<<< HEAD
-=======
+
    
 class TeacherUpdateForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
@@ -129,7 +128,6 @@ class StudentUpdateForm(forms.ModelForm):
     class Meta:
         model = Student       
         fields = ()
->>>>>>> origin
 
 
 
