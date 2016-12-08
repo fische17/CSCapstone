@@ -7,6 +7,7 @@ from django.shortcuts import render
 from . import models
 from . import forms
 from datetime import datetime
+import itertools
 
 def getProjects(request):
 	projects_list = models.Project.objects.all()
@@ -41,8 +42,13 @@ def getBookmarks(request):
 def getSuggestedProjects(request):
 	if request.user.is_authenticated():
 		if request.user.is_student:
-			projects_list = models.Project.objects.all(programmingLang__icontains=user.language)
-
+			print(request.user.student.languages)
+			y = request.user.student.languages.strip().split(",")
+			projects_list = models.Project.objects.filter(programmingLang__contains="FLying")
+			
+			for lang in y:
+				projects_list = itertools.chain(projects_list, models.Project.objects.filter(programmingLang__contains=lang))
+			
 			return render(request, 'projects.html', {
 				'projects': projects_list,
 			})
