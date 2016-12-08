@@ -10,6 +10,7 @@ class Group(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=300)
     members = models.ManyToManyField(MyUser)
+    comments = models.ManyToManyField('CommentsApp.Comment', related_name='comments')
     
     def __str__(self):
         return self.name
