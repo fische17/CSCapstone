@@ -14,7 +14,7 @@ class University(models.Model):
     description = models.CharField(max_length=300)
     website=models.CharField(max_length=300, default="/")
     members = models.ManyToManyField(MyUser)
-    teachers = models.ManyToManyField(Teacher, related_name='teachers')
+    teachers = models.ManyToManyField(Teacher, related_name='teachers', blank=True)
     
     def __str__(self):
         return self.name

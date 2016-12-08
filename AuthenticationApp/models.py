@@ -97,10 +97,14 @@ class MyUser(AbstractBaseUser):
 
 
 class Student(models.Model):
+
     user = models.OneToOneField(
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
+    user.is_student = True;
+    languages = models.CharField(max_length=200)
+
 
     
     university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
@@ -178,7 +182,7 @@ class Engineer(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
-
+    company = models.ForeignKey('CompaniesApp.Company', on_delete=models.CASCADE)
 
     almaMater = models.CharField(
 			max_length = 160,
