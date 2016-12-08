@@ -22,9 +22,9 @@ class MyUserManager(BaseUserManager):
         user.set_password(password)
 
         #If first_name is not present, set it as email's username by default
-        if first_name is None or first_name == "" or first_name == '':                                
-            user.first_name = email[:email.find("@")]            
-        
+        if first_name is None or first_name == "" or first_name == '':
+            user.first_name = email[:email.find("@")]
+
         user.save(using=self._db)
         return user
 
@@ -46,7 +46,7 @@ class MyUser(AbstractBaseUser):
     	max_length=120,
     	null=True,
     	blank=True,
-    	)    
+    	)
 
     last_name = models.CharField(
     	max_length=120,
@@ -67,10 +67,10 @@ class MyUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    def get_full_name(self):        
+    def get_full_name(self):
         return "%s %s" %(self.first_name, self.last_name)
 
-    def get_short_name(self):        
+    def get_short_name(self):
         return self.first_name
 
     def __str__(self):              #Python 3
@@ -82,34 +82,34 @@ class MyUser(AbstractBaseUser):
     def has_perm(self, perm, obj=None):
         return True
 
-    def has_module_perms(self, app_label):        
+    def has_module_perms(self, app_label):
         return True
 
     @property
     def is_staff(self):
         return self.is_admin
-    
+
 #     def new_user_reciever(sender, instance, created, *args, **kwargs):
-#     	if created:   
-     
+#     	if created:
+
 # Going to use signals to send emails
 # post_save.connect(new_user_reciever, sender=MyUser)
-             
+
 
 class Student(models.Model):
     user = models.OneToOneField(
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
-        
+
     is_student = False
     
     #university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
-    def get_full_name(self):        
+    def get_full_name(self):
         return "%s %s" %(self.user.first_name, self.user.last_name)
 
-    def get_short_name(self):        
+    def get_short_name(self):
         return self.user.first_name
 
     def __str__(self):              #Python 3
@@ -121,7 +121,7 @@ class Student(models.Model):
     def has_perm(self, perm, obj=None):
         return True
 
-    def has_module_perms(self, app_label):        
+    def has_module_perms(self, app_label):
         return True
 
 
@@ -134,40 +134,40 @@ class Teacher(models.Model):
         MyUser,
         on_delete=models.CASCADE,
         primary_key=True)
-        
+
 # Contact Info
-                                
+
     phone_number = models.CharField(max_length=10)
     address = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=30)
     zip = models.CharField(max_length=10)
-        
+
 # University Info
-                                
+
     is_professor = True
     university_name = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
-                                
+
     def get_full_name(self):
         return "%s %s" %(self.user.first_name, self.user.last_name)
-                                
+
     def get_short_name(self):
         return self.user.first_name
-    
+
     def __str__(self):              #Python 3
         return self.user.email
-    
+
     def __unicode__(self):           # Python 2
         return self.user.email
-    
+
     def has_perm(self, perm, obj=None):
         return True
-    
+
     def has_module_perms(self, app_label):
         return True
-    
+
     @property
     def is_staff(self):
         return True
@@ -192,37 +192,36 @@ class Engineer(models.Model):
 			null= True,
 	)
     def getFullName(self):
-		return "%s %s" %(self.user.first_name, self.user.last_name)
-	
+        return "%s %s" %(self.user.first_name, self.user.last_name)
+
     def getFirstName(self):
-		return self.user.first_name
-		
+        return self.user.first_name
+
     def getLastName(self):
-		return self.user.last_name
-		
+        return self.user.last_name
+
     def getAlmaMater(self):
-		return self.almaMater
-	
+        return self.almaMater
+
     def getAbout(self):
-		return self.about
-	
+        return self.about
+
     def getContactInfo(self):
         return self.contact_info
-		
+
     def __str__(self):
-		return self.user.email
+        return self.user.email
 
     def __unicode__(self):
-		return self.user.email
+        return self.user.email
 
     def has_perm(self, perm, obj=None):
-		return True
+        return True
 
     def has_module_perms(self, app_label):
-		return True
+        return True
 
 
     @property
     def is_staff(self):
-		return False
-	
+        return False
