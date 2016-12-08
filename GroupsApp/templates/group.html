@@ -38,25 +38,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="table-responsive">
-			<table class="table table-striped sortable">
-				<thead>
-					<tr>
-						<th>Comments</th>
-					</tr>
-				</thead>
-				<tbody>
-					  {% for item in group.comments.all %}
-                   <tr>
-                       <td>{{ item.time }}</td>
-                       <td>
-						   <pre>{% autoescape off %}{{ item.comment }}{% endautoescape %}</pre>
-                       </td>
-                   </tr>
-                   {% endfor %}
-				</tbody>
-			</table>
-		</div>
 	</div>
 
 {% endblock %}
