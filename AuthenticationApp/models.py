@@ -184,7 +184,7 @@ class Engineer(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
 
-    company = models.ForeignKey('CompaniesApp.Company', on_delete=models.CASCADE)
+    company = models.ForeignKey('CompaniesApp.Company', on_delete=models.CASCADE, null=True, blank=True)
 
     almaMater = models.CharField(
 			max_length = 160,
