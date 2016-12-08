@@ -28,8 +28,8 @@ class RegisterForm(forms.Form):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput, required=True)    
     role = forms.ChoiceField(label='Role',widget=forms.Select(), initial="student",choices=ROLES)
-    #company = forms.ModelChoiceField(queryset=Company.objects.all())
-    university = forms.ModelChoiceField(queryset=University.objects.all())
+    company = forms.ModelChoiceField(queryset=Company.objects.all(), required=False)
+    university = forms.ModelChoiceField(queryset=University.objects.all(), required=False)
     firstname = forms.CharField(label="First name", widget=forms.TextInput, required=False)
     lastname = forms.CharField(label="Last name", widget=forms.TextInput, required=False)               
 
@@ -126,7 +126,7 @@ class StudentUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Student       
-        fields = ()
+        fields = ('university',)
 
 
 

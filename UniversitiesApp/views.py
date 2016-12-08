@@ -65,14 +65,32 @@ def joinUniversity(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
         in_university = models.University.objects.get(name__exact=in_name)
-        in_university.members.add(request.user)
-        in_university.save();
-        request.user.university_set.add(in_university)
-        request.user.save()
-        context = {
-            'university' : in_university,
-            'userIsMember': True,
-        }
+        if(request.user.is_teacher):
+            in_university.teachers.add(request.user.teacher)
+            in_university.save();
+            if(request.user.teacher.university):
+                request.user.teacher.university.teachers.remove(request.user.teacher)
+            request.user.teacher.university = in_university
+            request.user.teacher.save()
+            request.user.save()
+            context = {
+                'university' : in_university,
+                'userIsTeacher': True,
+            }
+        elif (request.user.is_student):
+            in_university.members.add(request.user)
+            in_university.save();
+            if(request.user.student.university):
+                request.user.student.university.members.remove(request.user)
+            request.user.student.university = in_university
+            request.user.student.save()
+            request.user.save()
+            context = {
+                'university' : in_university,
+                'userIsTeacher': True,
+            }
+
+
         return render(request, 'university.html', context)
     return render(request, 'autherror.html')
     
@@ -80,14 +98,29 @@ def unjoinUniversity(request):
     if request.user.is_authenticated():
         in_name = request.GET.get('name', 'None')
         in_university = models.University.objects.get(name__exact=in_name)
-        in_university.members.remove(request.user)
-        in_university.save();
-        request.user.university_set.remove(in_university)
-        request.user.save()
-        context = {
-            'university' : in_university,
-            'userIsMember': False,
-        }
+        if(request.user.is_teacher):
+            in_university.teachers.remove(request.user.teacher)
+            in_university.save();
+            request.user.teacher.university = None
+            request.user.teacher.save()
+            request.user.save()
+            context = {
+                'university' : in_university,
+                'userIsTeacher': False,
+            }
+        
+        elif(request.user.is_student):
+            in_university.members.remove(request.user)
+            in_university.save();
+            request.user.student.university = None
+            request.user.student.save()
+            request.user.save()
+            context = {
+                'university' : in_university,
+                'userIsTeacher': True,
+            }
+        
+        
         return render(request, 'university.html', context)
     return render(request, 'autherror.html')
     

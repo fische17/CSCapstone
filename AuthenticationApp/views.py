@@ -61,6 +61,7 @@ def auth_register(request):
 		#Also registering students		
 		if(form.cleaned_data['role'] == "student"):
 			new_student = Student(user = new_user)
+			new_student.university = form.cleaned_data['university']			
 			new_user.is_student = True
 			new_student.save()
 
@@ -114,7 +115,7 @@ def update_info(request):
 	elif(request.user.is_engineer):
 		form = EngineerUpdateForm(request.POST or None, instance=request.user.engineer)
 	else:
-		form = StudentUpdateForm(request.POST or None, instance=request.user.engineer)				
+		form = StudentUpdateForm(request.POST or None, instance=request.user.student)				
 	if form.is_valid():
 		form.save()
 		messages.success(request, 'Success, your info was save!')

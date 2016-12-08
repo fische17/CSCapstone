@@ -103,7 +103,7 @@ class Student(models.Model):
         primary_key=True)
 
     
-    #university_name = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
+    university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
 
     def get_full_name(self):
         return "%s %s" %(self.user.first_name, self.user.last_name)
@@ -145,7 +145,8 @@ class Teacher(models.Model):
 
 # University Info
 
-    university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
+    university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
+
 
 
     def get_full_name(self):
