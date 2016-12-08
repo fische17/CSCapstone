@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.db.models.signals import post_save
+#from UniversitiesApp.models import University
 
 
 # Create your models here.
@@ -102,6 +103,8 @@ class Student(models.Model):
         primary_key=True)
         
     is_student = False
+    
+    #university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
     def get_full_name(self):        
         return "%s %s" %(self.user.first_name, self.user.last_name)
@@ -144,7 +147,7 @@ class Teacher(models.Model):
 # University Info
                                 
     is_professor = True
-    university_name = models.CharField(max_length=100)#models.ForeignKey(University, on_delete=models.CASCADE)
+    university_name = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
 
                                 
     def get_full_name(self):
