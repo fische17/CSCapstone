@@ -76,8 +76,8 @@
 				</tbody>
 			</table>
 		</div>
-		{% if user.is_teacher %}
-			{% if  user.teacher.university == university %}
+		{% if user.is_teacher or user.is_admin %}
+			{% if  user.teacher.university == university or user.is_admin %}
 				<a href="/university/course/form?name={{ university.name }}" class="btn btn-default">Add a course</a>
 			{% endif %}
 		{% endif %}

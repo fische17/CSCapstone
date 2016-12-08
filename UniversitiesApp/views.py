@@ -139,6 +139,10 @@ def getCourse(request):
 		return render(request, 'course.html', context)
 	return render(request, 'autherror.html')
 
+def addStudent(request):
+    if request.user.is_authenticated():
+        pass
+
 def courseForm(request):
 	if request.user.is_authenticated():
 		in_university_name = request.GET.get('name', 'None')
@@ -162,7 +166,8 @@ def addCourse(request):
 				new_course = models.Course(tag=form.cleaned_data['tag'],
 										   name=form.cleaned_data['name'],
 										   description=form.cleaned_data['description'],
-										   university=in_university)
+										   university=in_university,
+                                           teacher=request.user.teacher)
 				new_course.save()
 				in_university.course_set.add(new_course)
 				is_member = in_university.members.filter(email__exact=request.user.email)

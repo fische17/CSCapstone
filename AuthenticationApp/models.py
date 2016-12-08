@@ -104,6 +104,7 @@ class Student(models.Model):
         
     
     university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
+    #courses = models.ManyToManyField('UniversitiesApp.Course', related_name='courses')
 
     def get_full_name(self):        
         return "%s %s" %(self.user.first_name, self.user.last_name)
@@ -150,7 +151,7 @@ class Teacher(models.Model):
                                 
    
     university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
-
+    #courses = models.ManyToManyField('UniversitiesApp.Course', related_name='courses')
                                 
     def get_full_name(self):
         return "%s %s" %(self.user.first_name, self.user.last_name)
