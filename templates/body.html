@@ -24,6 +24,19 @@
 					<li><a href="/updateInfo">Update Info</a></li>
 					<li role="presentation" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						  Projects <span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="/project/all">All Projects</a></li>
+							<li><a href="/project/bookmarks">Bookmarked</a></li>
+							<li><a href="/project/suggested">Suggested</a></li>
+							{% if user.is_engineer %}
+								<li><a href="/project/createForm">Create Project</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						  Groups/Organizations <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
@@ -39,7 +52,9 @@
 						<ul class="dropdown-menu">
 							<li><a href="/company/form">Create Company</a></li>
 							<li><a href="/university/form">Create University</a></li>
-							<li><a href="/group/form">Create Group</a></li>
+							{% if user.is_student %}
+								<li><a href="/group/form">Create Group</a></li>
+							{% endif %}
 						</ul>
 					</li>
 					<li><a href="/logout">Logout</a></li>

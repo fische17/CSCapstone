@@ -8,7 +8,13 @@
 			<h1>{{ group.name }}</h1>
 			<p>{{ group.description }}</p>
 			{% if userIsMember %}
-			<a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
+				<a href="/group/unjoin?name={{ group.name }}" class="btn btn-default">Unjoin this Group</a>
+				<a href="/group/helloWorld?name={{ group.name }}" class="btn btn-default">Add A Member!</a>
+				{% if haveProject %}
+					<a href="/group/addProject?name={{ group.name }}" class="btn btn-default">Remove Current Project</a>
+				{% else %}
+					<a href="/group/addProject?name={{ group.name }}" class="btn btn-default">Add Project</a>
+				{% endif %}
 			{% else %}
 			<a href="/group/join?name={{ group.name }}" class="btn btn-default">Join this Group</a>
 			{% endif %}
@@ -29,6 +35,25 @@
 						<td>{{ item.get_full_name }}</td>
 					</tr>
 					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped sortable">
+				<thead>
+					<tr>
+						<th>Comments</th>
+					</tr>
+				</thead>
+				<tbody>
+					  {% for item in group.comments.all %}
+                   <tr>
+                       <td>{{ item.time }}</td>
+                       <td>
+						   <pre>{% autoescape off %}{{ item.comment }}{% endautoescape %}</pre>
+                       </td>
+                   </tr>
+                   {% endfor %}
 				</tbody>
 			</table>
 		</div>

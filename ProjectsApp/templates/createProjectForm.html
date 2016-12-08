@@ -1,0 +1,40 @@
+{% extends "body.html" %}
+
+{% block content %}
+
+	<!-- Content -->
+	<div class="container" role="main">
+		<div class="jumbotron">
+			<h3 style="margin: 0px; padding: 0px;">Create Project</h3>
+		</div>
+		<div class="panel panel-default">
+			<form method="post" action="/project/formsuccess" class="panel-body validate">
+				{% csrf_token %}
+				<label for="name">Name</label>
+				<h6 style="color:red">{{ error }}</h6>
+				<input type="text" name="name" id="name" placeholder="name" class="form-control" data-bvalidator="required" data-bvalidator-msg="Name Required">
+				<br>
+				<label for="description">Project Description</label>
+				<input type="text" name="description" id="description" placeholder="Description" class="form-control" data-bvalidator="required" data-bvalidator-msg="Description Required">
+				<br>
+                <label for="programingLang">Programming Language</label>
+				<input type="text" name="programmingLang" id="programmingLang" placeholder="programmingLang" class="form-control" data-bvalidator="required" data-bvalidator-msg="Programming Lang Required">
+				<br>
+                <label for="yearsRequired">Years Required</label>
+				<input type="text" name="yearsRequired" id="yearsRequired" placeholder="yearsRequired" class="form-control" data-bvalidator="required" data-bvalidator-msg="Years Required is Required">
+				<br>
+                <label for="speciality">Speciality</label>
+				<input type="text" name="speciality" id="speciality" placeholder="speciality" class="form-control" data-bvalidator="required" data-bvalidator-msg="Speciality Required">
+				<br>
+				<label for="created_at">Created At</label>
+                <input type="date" name="created_at" id="created_at" class="form-control">
+                <br>
+                <label for="updated_at">Updated At</label>
+                <input type="date" name="updated_at" id="updated_at" class="form-control">
+                <br>
+				<input type="submit" value="Submit" class="btn btn-primary">
+			</form>
+		</div>
+	</div>
+	
+{% endblock %}
