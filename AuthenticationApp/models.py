@@ -149,7 +149,7 @@ class Teacher(models.Model):
 # University Info
                                 
    
-    university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE)
+    university = models.ForeignKey('UniversitiesApp.University', on_delete=models.CASCADE, null=True, blank=True)
 
                                 
     def get_full_name(self):
