@@ -176,9 +176,23 @@ def addComment(request):
                 in_group = models.Group.objects.get(name__exact=in_name)
                 new_comment = Comment(comment=form.cleaned_data['comment'])
                 new_comment.group = in_group
+                new_comment.poster = request.user
                 new_comment.save()
                 in_group.comments.add(new_comment)
                 return render(request, 'group.html', {
                     'group': in_group,
                 })
+    return render(request, 'autherror.html')
+
+def deleteComment(request):
+    if request.user.is_authenticated(): 
+        in_name = request.GET.get('name', 'None')
+        in_group = models.Group.objects.get(name__exact=in_name)
+        in_comment_id = request.GET.get('comment', 'None')
+        in_comment = Comment.objects.get(id=in_comment_id)
+        in_comment.delete()
+        print(in_comment.comment)
+        return render(request, 'group.html', {
+            'group': in_group,
+        })
     return render(request, 'autherror.html')

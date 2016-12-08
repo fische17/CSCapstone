@@ -53,6 +53,10 @@
                        <td>
 						   <pre>{% autoescape off %}{{ item.comment }}{% endautoescape %}</pre>
                        </td>
+					   	{% if user == item.poster %}
+					   <td><a href="/group/deleteComment?name={{ group.name }}&comment={{ item.id }}" class="btn btn-default">Delete</a></td>
+					   {% endif %}
+					   
                    </tr>
                    {% endfor %}
 				</tbody>
